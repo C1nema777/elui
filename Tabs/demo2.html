@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab选项卡</title>
+  <style>
+    .container {
+      max-width: 800px;
+      padding: 16px;
+      margin: 30px auto;
+      border-radius: 4px;
+      box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .tabs .tab-header {
+      /* 不加relative,绝对定位就相对于body做偏移 */
+      position: relative;
+      display: flex;
+      font-size: 14px;
+      color: #303030;
+      line-height: 2;
+      font-weight: 500;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .tabs .tab-item {
+      margin-right: 30px;
+      cursor: pointer;
+    }
+
+    .tabs .line {
+      position: absolute;
+      top: 100%;
+      transform: translateX(0);
+      width: 50px;
+      height: 2px;
+      background: #409eff;
+      transition: all .3s;
+    }
+
+    .tabs .tab-item.active {
+      color: #409eff;
+    }
+
+    .tabs .tab-panel {
+      padding: 16px 0;
+      font-size: 15px;
+      display: none;
+    }
+
+    .tabs .tab-panel.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Tab选项卡</h2>
+    <div class="tabs">
+      <div class="tab-header">
+        <span class="tab-item active">用户管理</span>
+        <span class="tab-item">配置管理</span>
+        <span class="tab-item">角色管理</span>
+        <span class="tab-item">定时任务补偿</span>
+        <span class="line"></span>
+      </div>
+      <div class="tab-content">
+        <div class="tab-panel active">用户管理</div>
+        <div class="tab-panel">配置管理</div>
+        <div class="tab-panel">角色管理</div>
+        <div class="tab-panel">定时任务补偿</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = css => document.querySelector(css)
+    const $$ = css => document.querySelectorAll(css)
+
+    const $$tabItems = $$('.tabs .tab-item')
+    const $$tabPanels = $$('.tabs .tab-panel')
+    const $line = $('.tabs .line')
+
+    $line.style.width = $$tabItems[0].offsetWidth + 'px'
+    // 约定：dom对象前加$ 类数组对象前加$$ 方便自己区分
+    $$tabItems.forEach($tab => {
+      $tab.onclick = function () {
+        $$tabItems.forEach($tab => $tab.classList.remove('active'))
+        // this指向当前被点击的元素对象
+        this.classList.add('active')
+
+        console.log(this.offsetWidth)
+        console.log(this.offsetLeft)
+        
+        $line.style.width = this.offsetWidth + 'px'
+        $line.style.transform = `translateX(${this.offsetLeft}px)`
+
+        let index = [...$$tabItems].indexOf(this)
+        $$tabPanels.forEach($panel => $panel.classList.remove('active'))
+        $$tabPanels[index].classList.add('active')
+      }
+    })
+
+  </script>
+
+</body>
+</html>
