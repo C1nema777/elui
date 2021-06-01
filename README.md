@@ -1,4 +1,4 @@
-## 原生JS练习
+## 原生JS组件
 - Collapse 折叠面版
 - Message 消息提示
 - Tabs 标签页
