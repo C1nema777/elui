@@ -115,6 +115,7 @@
       }
 
       bind() {
+        // 如果不用箭头函数，就不能直接用this，需要在外面换个值，let self = this
         // 不直接调用this.show(); 增加从没有到有的过程
         setTimeout(() => this.show(), 0)
         setTimeout(() => this.destory(), 3000)
