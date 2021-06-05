@@ -1,5 +1,6 @@
 ## 原生JS组件
 - Collapse 折叠面版
+- Dialog 对话框
 - Message 消息提示
-- Tabs 标签页
+- Tabs 选项卡
 - Tooltip 文字提示
